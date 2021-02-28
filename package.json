@@ -1,9 +1,9 @@
 {
   "name": "leassets-client",
   "version": "0.0.1-SNAPSHOT",
-  "description": "Description for leassetsClient",
+  "description": "Client for leassets system",
   "private": true,
-  "license": "UNLICENSED",
+  "license": "GPLv3",
   "cacheDirectories": [
     "node_modules"
   ],
