@@ -12,7 +12,7 @@ RUN npm install
 
 ENV PATH="./node_modules/.bin:$PATH"
 
-RUN npm run webpack:prod
+RUN npm run webapp:prod
 
 # Stage 2
 FROM nginx
