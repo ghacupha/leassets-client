@@ -96,7 +96,7 @@ module.exports = (config, options) => {
         // If this URL is left empty (""), then it will be relative to the current context.
         // If you use an API server, in `prod` mode, you will need to enable CORS
         // (see the `jhipster.cors` common JHipster property in the `application-*.yml` configurations)
-        SERVER_API_URL: `http${tls ? 's' : ''}://localhost:9100/`,
+        SERVER_API_URL: `'http://localhost:9100/'`,
       },
     })
   );

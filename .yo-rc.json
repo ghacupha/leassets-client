@@ -37,6 +37,7 @@
     "serverPort": "9100",
     "serviceDiscoveryType": "eureka",
     "enableHibernateCache": true,
-    "reactive": false
+    "reactive": false,
+    "entities": ["FixedAssetAcquisition", "FixedAssetNetBookValue", "FixedAssetDepreciation"]
   }
 }
