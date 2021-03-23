@@ -1,11 +1,11 @@
 {
   "generator-jhipster": {
-    "jhipsterVersion": "6.10.5",
+    "jhipsterVersion": "7.0.0",
     "applicationType": "monolith",
     "baseName": "leassetsClient",
     "useSass": true,
     "clientPackageManager": "npm",
-    "clientFramework": "react",
+    "clientFramework": "angularX",
     "clientTheme": "journal",
     "clientThemeVariant": "dark",
     "authenticationType": "jwt",
@@ -21,6 +21,22 @@
     "otherModules": [],
     "enableTranslation": false,
     "blueprints": [],
-    "skipServer": true
+    "skipServer": true,
+    "skipClient": false,
+    "skipUserManagement": false,
+    "skipCheckLengthOfIdentifier": false,
+    "skipFakeData": false,
+    "pages": [],
+    "withAdminUi": true,
+    "nativeLanguage": "en",
+    "languages": ["en", "fr"],
+    "packageName": "io.github.leassets",
+    "websocket": true,
+    "searchEngine": false,
+    "buildTool": "maven",
+    "serverPort": "9100",
+    "serviceDiscoveryType": "eureka",
+    "enableHibernateCache": true,
+    "reactive": false
   }
 }

@@ -1,26 +1,25 @@
-
 exports.config = {
-  allScriptsTimeout: 60000,
+  allScriptsTimeout: 20000,
 
   specs: [
-    './e2e/modules/account/*.spec.ts',
-    './e2e/modules/administration/*.spec.ts',
-    './e2e/entities/**/*.spec.ts'
+    './e2e/account/**/*.spec.ts',
+    './e2e/admin/**/*.spec.ts',
+    './e2e/entities/**/*.spec.ts',
     /* jhipster-needle-add-protractor-tests - JHipster will add protractors tests here */
   ],
 
   capabilities: {
     browserName: 'chrome',
     chromeOptions: {
-        args: process.env.JHI_E2E_HEADLESS
-          ? [ '--headless', '--disable-gpu', '--window-size=800,600' ]
-          : [ '--disable-gpu', '--window-size=800,600' ]
-    }
+      args: process.env.JHI_E2E_HEADLESS
+        ? ['--headless', '--disable-gpu', '--window-size=800,600']
+        : ['--disable-gpu', '--window-size=800,600'],
+    },
   },
 
   directConnect: true,
 
-  baseUrl: 'http://localhost:8080/',
+  baseUrl: 'http://localhost:9100/',
 
   framework: 'mocha',
 
@@ -28,33 +27,30 @@ exports.config = {
 
   mochaOpts: {
     reporter: 'spec',
-    slow: 6000,
+    slow: 3000,
     ui: 'bdd',
-    timeout: 60000
+    timeout: 720000,
   },
 
-  beforeLaunch () {
+  beforeLaunch: function () {
     require('ts-node').register({
-      project: './tsconfig.e2e.json'
+      project: 'tsconfig.e2e.json',
     });
   },
 
-  onPrepare () {
-    // @ts-ignore
+  onPrepare: function () {
     browser.driver.manage().window().setSize(1280, 1024);
-    // @ts-ignore
-    browser.ignoreSynchronization = true;
     // Disable animations
     // @ts-ignore
     browser.executeScript('document.body.className += " notransition";');
     const chai = require('chai');
     const chaiAsPromised = require('chai-as-promised');
     chai.use(chaiAsPromised);
+    const chaiString = require('chai-string');
+    chai.use(chaiString);
     // @ts-ignore
     global.chai = chai;
   },
-  params: {
-    waitTimeoutInMillis: 10000,
-    logWaitErrors: false
-  }
+
+  useAllAngular2AppRoots: true,
 };

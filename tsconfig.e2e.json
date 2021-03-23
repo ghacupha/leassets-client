@@ -1,8 +1,6 @@
 {
-  "extends": "./tsconfig",
+  "extends": "./tsconfig.json",
   "compilerOptions": {
-    "module": "commonjs",
-    "types": ["chai", "mocha"]
-  },
-  "include": ["src/main/webapp/app", "src/test/javascript/"]
+    "module": "commonjs"
+  }
 }
