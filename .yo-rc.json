@@ -31,7 +31,7 @@
     "nativeLanguage": "en",
     "languages": ["en", "fr"],
     "packageName": "io.github.leassets",
-    "websocket": true,
+    "websocket": false,
     "searchEngine": false,
     "buildTool": "maven",
     "serverPort": "9100",
