@@ -23,7 +23,7 @@ jobs:
               run: npm run test
 
             - name: Package application
-              run: npm run webpack:prod
+              run: npm run webapp:prod
 
             - name: Login to Docker hub
               uses: docker/login-action@v1
