@@ -1,10 +1,14 @@
+jest.mock('app/core/auth/account.service');
+jest.mock('@angular/router');
+
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { AccountService } from 'app/core/auth/account.service';
+import { of } from 'rxjs';
 
 import { AboutComponent } from './about.component';
 
-describe('Component Tests', () => {
+describe('About Page Component Test', () => {
   describe('About Component', () => {
     let comp: AboutComponent;
     let fixture: ComponentFixture<AboutComponent>;
