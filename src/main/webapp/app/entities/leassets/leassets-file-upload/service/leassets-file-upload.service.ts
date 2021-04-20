@@ -15,7 +15,7 @@ export type EntityArrayResponseType = HttpResponse<ILeassetsFileUpload[]>;
 
 @Injectable({ providedIn: 'root' })
 export class LeassetsFileUploadService {
-  public resourceUrl = this.applicationConfigService.getEndpointFor('api/leassets-file-uploads');
+  public resourceUrl = this.applicationConfigService.getEndpointFor('api/app/file-uploads');
 
   constructor(protected http: HttpClient, private applicationConfigService: ApplicationConfigService) {}
 
