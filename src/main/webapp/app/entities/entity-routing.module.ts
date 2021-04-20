@@ -20,6 +20,16 @@ import { RouterModule } from '@angular/router';
         data: { pageTitle: 'FixedAssetDepreciations' },
         loadChildren: () => import('./fixed-asset-depreciation/fixed-asset-depreciation.module').then(m => m.FixedAssetDepreciationModule),
       },
+      {
+        path: 'leassets-file-type',
+        data: { pageTitle: 'LeassetsFileTypes' },
+        loadChildren: () => import('./leassets/leassets-file-type/leassets-file-type.module').then(m => m.LeassetsFileTypeModule),
+      },
+      {
+        path: 'leassets-file-upload',
+        data: { pageTitle: 'LeassetsFileUploads' },
+        loadChildren: () => import('./leassets/leassets-file-upload/leassets-file-upload.module').then(m => m.LeassetsFileUploadModule),
+      },
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ]),
   ],

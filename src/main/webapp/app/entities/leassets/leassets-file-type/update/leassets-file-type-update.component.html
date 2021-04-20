@@ -1,0 +1,155 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="gha-leassets-file-type-heading" data-cy="LeassetsFileTypeCreateUpdateHeading">Create or edit a Leassets File Type</h2>
+
+      <div>
+        <gha-alert-error></gha-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_leassetsFileTypeName">Leassets File Type Name</label>
+          <input
+            type="text"
+            class="form-control"
+            name="leassetsFileTypeName"
+            id="field_leassetsFileTypeName"
+            data-cy="leassetsFileTypeName"
+            formControlName="leassetsFileTypeName"
+          />
+          <div
+            *ngIf="
+              editForm.get('leassetsFileTypeName')!.invalid &&
+              (editForm.get('leassetsFileTypeName')!.dirty || editForm.get('leassetsFileTypeName')!.touched)
+            "
+          >
+            <small class="form-text text-danger" *ngIf="editForm.get('leassetsFileTypeName')?.errors?.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_leassetsFileMediumType">Leassets File Medium Type</label>
+          <select
+            class="form-control"
+            name="leassetsFileMediumType"
+            formControlName="leassetsFileMediumType"
+            id="field_leassetsFileMediumType"
+            data-cy="leassetsFileMediumType"
+          >
+            <option [ngValue]="null"></option>
+            <option value="EXCEL">EXCEL</option>
+            <option value="EXCEL_XLS">EXCEL_XLS</option>
+            <option value="EXCEL_XLSX">EXCEL_XLSX</option>
+            <option value="EXCEL_XLSB">EXCEL_XLSB</option>
+            <option value="EXCEL_CSV">EXCEL_CSV</option>
+            <option value="EXCEL_XML">EXCEL_XML</option>
+            <option value="PDF">PDF</option>
+            <option value="POWERPOINT">POWERPOINT</option>
+            <option value="DOC">DOC</option>
+            <option value="TEXT">TEXT</option>
+            <option value="JSON">JSON</option>
+            <option value="HTML5">HTML5</option>
+          </select>
+          <div
+            *ngIf="
+              editForm.get('leassetsFileMediumType')!.invalid &&
+              (editForm.get('leassetsFileMediumType')!.dirty || editForm.get('leassetsFileMediumType')!.touched)
+            "
+          >
+            <small class="form-text text-danger" *ngIf="editForm.get('leassetsFileMediumType')?.errors?.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_description">Description</label>
+          <input
+            type="text"
+            class="form-control"
+            name="description"
+            id="field_description"
+            data-cy="description"
+            formControlName="description"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_fileTemplate">File Template</label>
+          <div>
+            <div *ngIf="editForm.get('fileTemplate')!.value" class="form-text text-danger clearfix">
+              <a class="pull-left" (click)="openFile(editForm.get('fileTemplate')!.value, editForm.get('fileTemplateContentType')!.value)"
+                >open</a
+              ><br />
+              <span class="pull-left"
+                >{{ editForm.get('fileTemplateContentType')!.value }}, {{ byteSize(editForm.get('fileTemplate')!.value) }}</span
+              >
+              <button
+                type="button"
+                (click)="editForm.patchValue({ fileTemplate: null }); editForm.patchValue({ fileTemplateContentType: null })"
+                class="btn btn-secondary btn-xs pull-right"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input type="file" id="file_fileTemplate" data-cy="fileTemplate" (change)="setFileData($event, 'fileTemplate', false)" />
+          </div>
+          <input
+            type="hidden"
+            class="form-control"
+            name="fileTemplate"
+            id="field_fileTemplate"
+            data-cy="fileTemplate"
+            formControlName="fileTemplate"
+          />
+          <input
+            type="hidden"
+            class="form-control"
+            name="fileTemplateContentType"
+            id="field_fileTemplateContentType"
+            formControlName="fileTemplateContentType"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_leassetsfileType">Leassetsfile Type</label>
+          <select
+            class="form-control"
+            name="leassetsfileType"
+            formControlName="leassetsfileType"
+            id="field_leassetsfileType"
+            data-cy="leassetsfileType"
+          >
+            <option [ngValue]="null"></option>
+            <option value="CURRENCY_LIST">CURRENCY_LIST</option>
+            <option value="FIXED_ASSET_ACQUISITION">FIXED_ASSET_ACQUISITION</option>
+            <option value="FIXED_ASSET_DEPRECIATION">FIXED_ASSET_DEPRECIATION</option>
+            <option value="FIXED_ASSET_NBV">FIXED_ASSET_NBV</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

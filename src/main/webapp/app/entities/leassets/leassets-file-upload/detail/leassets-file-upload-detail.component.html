@@ -1,0 +1,67 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="leassetsFileUpload">
+      <h2 data-cy="leassetsFileUploadDetailsHeading"><span>Leassets File Upload</span></h2>
+
+      <hr />
+
+      <gha-alert-error></gha-alert-error>
+
+      <gha-alert></gha-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ leassetsFileUpload.id }}</span>
+        </dd>
+        <dt><span>Description</span></dt>
+        <dd>
+          <span>{{ leassetsFileUpload.description }}</span>
+        </dd>
+        <dt><span>File Name</span></dt>
+        <dd>
+          <span>{{ leassetsFileUpload.fileName }}</span>
+        </dd>
+        <dt><span>Period From</span></dt>
+        <dd>
+          <span>{{ leassetsFileUpload.periodFrom | formatMediumDate }}</span>
+        </dd>
+        <dt><span>Period To</span></dt>
+        <dd>
+          <span>{{ leassetsFileUpload.periodTo | formatMediumDate }}</span>
+        </dd>
+        <dt><span>Leassets File Type Id</span></dt>
+        <dd>
+          <span>{{ leassetsFileUpload.leassetsFileTypeId }}</span>
+        </dd>
+        <dt><span>Data File</span></dt>
+        <dd>
+          <div *ngIf="leassetsFileUpload.dataFile">
+            <a (click)="openFile(leassetsFileUpload.dataFile, leassetsFileUpload.dataFileContentType)">open</a>
+            {{ leassetsFileUpload.dataFileContentType }}, {{ byteSize(leassetsFileUpload.dataFile) }}
+          </div>
+        </dd>
+        <dt><span>Upload Successful</span></dt>
+        <dd>
+          <span>{{ leassetsFileUpload.uploadSuccessful }}</span>
+        </dd>
+        <dt><span>Upload Processed</span></dt>
+        <dd>
+          <span>{{ leassetsFileUpload.uploadProcessed }}</span>
+        </dd>
+        <dt><span>Upload Token</span></dt>
+        <dd>
+          <span>{{ leassetsFileUpload.uploadToken }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/leassets-file-upload', leassetsFileUpload.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

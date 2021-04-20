@@ -38,6 +38,6 @@
     "serviceDiscoveryType": "eureka",
     "enableHibernateCache": true,
     "reactive": false,
-    "entities": ["FixedAssetAcquisition", "FixedAssetNetBookValue", "FixedAssetDepreciation"]
+    "entities": ["FixedAssetAcquisition", "FixedAssetNetBookValue", "FixedAssetDepreciation", "LeassetsFileType", "LeassetsFileUpload"]
   }
 }

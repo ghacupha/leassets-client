@@ -1,0 +1,113 @@
+<div>
+  <h2 id="page-heading" data-cy="LeassetsFileTypeHeading">
+    <span>Leassets File Types</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadPage()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-leassets-file-type"
+        [routerLink]="['/leassets-file-type/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new Leassets File Type </span>
+      </button>
+    </div>
+  </h2>
+
+  <gha-alert-error></gha-alert-error>
+
+  <gha-alert></gha-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="leassetsFileTypes?.length === 0">
+    <span>No leassetsFileTypes found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="leassetsFileTypes && leassetsFileTypes.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr ghaSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+          <th scope="col" ghaSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" ghaSortBy="leassetsFileTypeName"><span>Leassets File Type Name</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" ghaSortBy="leassetsFileMediumType"><span>Leassets File Medium Type</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" ghaSortBy="description"><span>Description</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" ghaSortBy="fileTemplate"><span>File Template</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" ghaSortBy="leassetsfileType"><span>Leassetsfile Type</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let leassetsFileType of leassetsFileTypes; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/leassets-file-type', leassetsFileType.id, 'view']">{{ leassetsFileType.id }}</a>
+          </td>
+          <td>{{ leassetsFileType.leassetsFileTypeName }}</td>
+          <td>{{ leassetsFileType.leassetsFileMediumType }}</td>
+          <td>{{ leassetsFileType.description }}</td>
+          <td>
+            <a
+              *ngIf="leassetsFileType.fileTemplate"
+              (click)="openFile(leassetsFileType.fileTemplate, leassetsFileType.fileTemplateContentType)"
+              >open</a
+            >
+            <span *ngIf="leassetsFileType.fileTemplate"
+              >{{ leassetsFileType.fileTemplateContentType }}, {{ byteSize(leassetsFileType.fileTemplate) }}</span
+            >
+          </td>
+          <td>{{ leassetsFileType.leassetsfileType }}</td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/leassets-file-type', leassetsFileType.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/leassets-file-type', leassetsFileType.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(leassetsFileType)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="leassetsFileTypes && leassetsFileTypes.length > 0">
+    <div class="row justify-content-center">
+      <gha-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></gha-item-count>
+    </div>
+
+    <div class="row justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>
