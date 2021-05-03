@@ -3,13 +3,14 @@ import { Subject } from 'rxjs';
 import { Moment } from 'moment';
 import { IFixedAssetNetBookValue } from 'app/entities/fixed-asset-net-book-value/fixed-asset-net-book-value.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AlertService } from 'app/core/util/alert.service';
 import { NGXLogger } from 'ngx-logger';
 import { RouteStateService } from 'app/bespoke/route-state.service';
 import { INavigationQuestionnaire } from 'app/bespoke/navigation-questionnaire/navigation-questionnaire.model';
 import { NavigationQuestionnaireModalService } from 'app/bespoke/navigation-questionnaire/navigation-questionnaire-modal.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DATE_FORMAT } from 'app/config/input.constants';
+import { JhiAlertService } from 'ng-jhipster';
+import { FixedAssetNBVDisplayTableService } from './fixed-asset-nbvdisplay-table.service';
 
 @Component({
   selector: 'gha-fixed-asset-nbv',
@@ -26,9 +27,9 @@ export class FixedAssetNbvComponent implements OnInit {
   constructor(
     protected activatedRoute: ActivatedRoute,
     protected router: Router,
-    protected jhiAlertService: AlertService,
+    protected jhiAlertService: JhiAlertService,
     private log: NGXLogger,
-    private listService: AggregateCurrencySummaryService,
+    private listService: FixedAssetNBVDisplayTableService,
     protected routeStateService: RouteStateService<INavigationQuestionnaire>,
     protected navigationPathServiceService: RouteStateService<string>,
     protected navigationQuestionnaireModelService: NavigationQuestionnaireModalService,
