@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Moment } from 'moment';
@@ -49,6 +50,13 @@ export class FixedAssetNbvComponent implements OnInit {
     this.secondPassDataUpdate();
   }
 
+  protected onError(errorMessage: string): void {
+    this.jhiAlertService.error(errorMessage, null, '');
+    this.log.error(`Error while extracting data from API ${errorMessage}`);
+
+    this.previousView();
+  }
+
   private getDataTableOptions(): DataTables.Settings {
     return (this.dtOptions = {
       searching: true,
@@ -64,7 +72,7 @@ export class FixedAssetNbvComponent implements OnInit {
   private secondPassDataUpdate(): void {
     this.listService.query(this.reportingMonth!.format(DATE_FORMAT)).subscribe(
       res => {
-        this.displayDataArray = res.body || [];
+        this.displayDataArray = res.body ?? [];
         // TODO test whether data-tables are created once and only once
         this.dtTrigger.next();
       },
@@ -77,7 +85,7 @@ export class FixedAssetNbvComponent implements OnInit {
     if (reportingMonth) {
       this.listService.query(reportingMonth.format(DATE_FORMAT)).subscribe(
         res => {
-          this.displayDataArray = res.body || [];
+          this.displayDataArray = res.body ?? [];
           // TODO test whether data-tables are created once and only once
           // this.dtTrigger.next()
         },
@@ -85,13 +93,6 @@ export class FixedAssetNbvComponent implements OnInit {
         () => this.log.info(`Extracted ${this.displayDataArray.length} view items from API`)
       );
     }
-  }
-
-  protected onError(errorMessage: string): void {
-    this.jhiAlertService.error(errorMessage, null, '');
-    this.log.error(`Error while extracting data from API ${errorMessage}`);
-
-    this.previousView();
   }
 
   private previousView(): void {

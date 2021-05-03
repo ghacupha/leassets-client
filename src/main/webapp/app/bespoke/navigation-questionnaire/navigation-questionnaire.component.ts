@@ -1,17 +1,16 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-// import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
 import { Router } from '@angular/router';
 import { RouteStateService } from 'app/bespoke/route-state.service';
 import { NGXLogger } from 'ngx-logger';
 import { Moment } from 'moment';
 import { INavigationQuestionnaire, NavigationQuestionnaire } from './navigation-questionnaire.model';
 import { NavigationQuestionnaireModalService } from './navigation-questionnaire-modal.service';
-import { Alert, AlertService } from 'app/core/util/alert.service';
 import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
 
 @Component({
-  selector: 'jhi-navigation-questionnaire',
+  selector: 'gha-navigation-questionnaire',
   templateUrl: './navigation-questionnaire.component.html',
   styleUrls: ['./navigation-questionnaire.component.scss'],
 })
@@ -20,7 +19,6 @@ export class NavigationQuestionnaireComponent implements OnInit {
   reportingPeriodDP: any;
   submissionNavigationQuestionnaire?: INavigationQuestionnaire | undefined;
   navigationPath?: string;
-  alerts: Alert[] = [];
 
   editForm = this.fb.group({
     reportingPeriod: [null, [Validators.required]],
@@ -79,13 +77,6 @@ export class NavigationQuestionnaireComponent implements OnInit {
     }
   }
 
-  private createFromForm(): INavigationQuestionnaire {
-    return {
-      ...new NavigationQuestionnaire(),
-      reportingPeriod: this.editForm.get(['reportingPeriod'])!.value,
-    };
-  }
-
   protected onSubmitSuccess(): void {
     this.isBusy = false;
   }
@@ -95,5 +86,12 @@ export class NavigationQuestionnaireComponent implements OnInit {
     const reportingMonth: Moment | undefined = this.submissionNavigationQuestionnaire?.reportingPeriod;
     this.alertService.error(`Navigation to the requested report on the month ${reportingMonth?.toISOString()} has failed`);
     this.previousState();
+  }
+
+  private createFromForm(): INavigationQuestionnaire {
+    return {
+      ...new NavigationQuestionnaire(),
+      reportingPeriod: this.editForm.get(['reportingPeriod'])!.value,
+    };
   }
 }

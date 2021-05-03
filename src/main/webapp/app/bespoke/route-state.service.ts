@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import { Injectable } from '@angular/core';
 import { NGXLogger } from 'ngx-logger';
 
