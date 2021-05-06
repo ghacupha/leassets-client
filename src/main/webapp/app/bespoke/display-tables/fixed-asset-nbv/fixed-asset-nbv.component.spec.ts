@@ -103,8 +103,6 @@ describe('FixedAssetNBVDisplayComponentTest', () => {
   const returnedFromService = Object.assign(returnedValue);
 
   beforeEach(() => {
-    // mockRouter = { navigation: jasmine.createSpyObj('navigation', ['then'])};
-
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, DataTablesModule, RouterTestingModule.withRoutes([])],
       declarations: [FixedAssetNbvComponent],
