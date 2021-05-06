@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Moment } from 'moment';
 import { IFixedAssetNetBookValue } from 'app/entities/fixed-asset-net-book-value/fixed-asset-net-book-value.model';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { NGXLogger } from 'ngx-logger';
 import { RouteStateService } from 'app/bespoke/route-state.service';
 import { INavigationQuestionnaire } from 'app/bespoke/navigation-questionnaire/navigation-questionnaire.model';
@@ -49,11 +49,18 @@ export class FixedAssetNbvComponent implements OnInit {
     this.secondPassDataUpdate();
   }
 
-  protected onError(errorMessage: string): void {
+  onError(errorMessage: string): void {
     this.jhiAlertService.error(errorMessage, null, '');
     this.log.error(`Error while extracting data from API ${errorMessage}`);
 
     this.previousView();
+  }
+
+  protected previousView(): void {
+    const navigation = this.router.navigate(['fixed-asset-net-book-value']);
+    navigation.then(() => {
+      this.log.debug(`Well! This was not supposed to happen. Review request parameters and reiterate`);
+    });
   }
 
   private getDataTableOptions(): DataTables.Settings {
@@ -92,12 +99,5 @@ export class FixedAssetNbvComponent implements OnInit {
         () => this.log.info(`Extracted ${this.displayDataArray.length} view items from API`)
       );
     }
-  }
-
-  private previousView(): void {
-    const navigation = this.router.navigate(['loan-account']);
-    navigation.then(() => {
-      this.log.debug(`Well! This was not supposed to happen. Review request parameters and reiterate`);
-    });
   }
 }
