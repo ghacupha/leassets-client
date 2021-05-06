@@ -26,7 +26,6 @@ export class FixedAssetNbvComponent implements OnInit {
   displayDataArray!: IFixedAssetNetBookValue[];
 
   constructor(
-    protected activatedRoute: ActivatedRoute,
     protected router: Router,
     protected jhiAlertService: JhiAlertService,
     private log: NGXLogger,
