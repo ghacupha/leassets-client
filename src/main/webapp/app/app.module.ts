@@ -26,6 +26,7 @@ import { FooterComponent } from './layouts/footer/footer.component';
 import { PageRibbonComponent } from './layouts/profiles/page-ribbon.component';
 import { ErrorComponent } from './layouts/error/error.component';
 import { BespokeModule } from './bespoke/bespoke.module';
+import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
 
 @NgModule({
   imports: [
@@ -40,6 +41,7 @@ import { BespokeModule } from './bespoke/bespoke.module';
     HttpClientModule,
     NgxWebstorageModule.forRoot({ prefix: 'gha', separator: '-' }),
     BespokeModule,
+    LoggerModule.forRoot({ serverLoggingUrl: '/api/logs', level: NgxLoggerLevel.DEBUG, serverLogLevel: NgxLoggerLevel.ERROR }),
   ],
   providers: [
     Title,
