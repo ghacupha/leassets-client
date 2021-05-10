@@ -4,20 +4,16 @@
   <table class="table table-striped table-bordered table-sm row-border hover" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
     <thead>
       <tr>
-        <th>Currency</th>
-        <th>Loan Balance</th>
-        <th>Accounts</th>
-        <th>Deposit Balance</th>
-        <th>Deposit Accounts</th>
+        <th>Service Outlet</th>
+        <th>Category</th>
+        <th>NBV</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let dt of displayDataArray">
-        <td>{{ dt.currencyCode }}</td>
-        <td>{{ dt.volume }}</td>
-        <td>{{ dt.numberOfAccounts }}</td>
-        <td>{{ dt.depositVolume }}</td>
-        <td>{{ dt.numberOfDepositAccounts }}</td>
+        <td>{{ dt.serviceOutletCode }}</td>
+        <td>{{ dt.assetCategory }}</td>
+        <td>{{ dt.netBookValue }}</td>
       </tr>
     </tbody>
   </table>
