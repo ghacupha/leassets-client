@@ -1,6 +1,8 @@
-import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { VERSION } from 'app/app.constants';
+import { NavigationQuestionnaireModalService } from 'app/bespoke/navigation-questionnaire/navigation-questionnaire-modal.service';
+import { RouteStateService } from 'app/bespoke/route-state.service';
 import { AccountService } from 'app/core/auth/account.service';
 import { ProfileService } from 'app/layouts/profiles/profile.service';
 import { LoginService } from 'app/login/login.service';
@@ -9,7 +11,6 @@ import { LoginService } from 'app/login/login.service';
   selector: 'gha-display-tables',
   templateUrl: './display-tables.component.html',
   styleUrls: ['./display-tables.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DisplayTablesComponent implements OnInit {
   inProduction?: boolean;
@@ -21,7 +22,9 @@ export class DisplayTablesComponent implements OnInit {
     private loginService: LoginService,
     private accountService: AccountService,
     private profileService: ProfileService,
-    private router: Router
+    private router: Router,
+    private navigationPathService: RouteStateService<string>,
+    private navigationQuestionnaireModelService: NavigationQuestionnaireModalService
   ) {
     if (VERSION) {
       this.version = VERSION.toLowerCase().startsWith('v') ? VERSION : 'v' + VERSION;
@@ -33,6 +36,13 @@ export class DisplayTablesComponent implements OnInit {
       this.inProduction = profileInfo.inProduction;
       this.openAPIEnabled = profileInfo.openAPIEnabled;
     });
+  }
+
+  navigateNBVDatatable(): void {
+    this.navigationPathService.data = '/display/fixed-asset-nbv';
+    this.navigationQuestionnaireModelService.open();
+
+    this.collapseNavbar();
   }
 
   collapseNavbar(): void {

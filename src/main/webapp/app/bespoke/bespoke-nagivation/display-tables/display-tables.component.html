@@ -8,13 +8,7 @@
     </a>
     <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="entity-menu">
       <li>
-        <a
-          class="dropdown-item"
-          routerLink="display/fixed-asset-nbv"
-          routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true }"
-          (click)="collapseNavbar()"
-        >
+        <a class="dropdown-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="navigateNBVDatatable()">
           <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
           <span>Fixed Asset NetBookValue</span>
         </a>
