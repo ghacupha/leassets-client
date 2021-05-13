@@ -4,7 +4,7 @@ import { SharedModule } from 'app/shared/shared.module';
 import { RouterModule, Routes } from '@angular/router';
 import { FixedAssetNbvModule } from 'app/bespoke/display-tables/fixed-asset-nbv/fixed-asset-nbv.module';
 import { FixedAssetDepreciationModule } from 'app/bespoke/display-tables/fixed-asset-depreciation/fixed-asset-depreciation.module';
-import { FixedAssetAcquistionModule } from 'app/bespoke/display-tables/fixed-asset-acquistion/fixed-asset-acquistion.module';
+import { FixedAssetAcquisitionModule } from 'app/bespoke/display-tables/fixed-asset-acquisition/fixed-asset-acquisition.module';
 
 const routes: Routes = [
   { path: 'fixed-asset-nbv', loadChildren: () => import('./fixed-asset-nbv/fixed-asset-nbv.module').then(m => m.FixedAssetNbvModule) },
@@ -17,6 +17,6 @@ const routes: Routes = [
 @NgModule({
   declarations: [],
   imports: [CommonModule, SharedModule, RouterModule.forChild(routes)],
-  exports: [RouterModule, FixedAssetNbvModule, FixedAssetDepreciationModule, FixedAssetAcquistionModule],
+  exports: [RouterModule, FixedAssetNbvModule, FixedAssetDepreciationModule, FixedAssetAcquisitionModule],
 })
 export class DisplayTablesModule {}
