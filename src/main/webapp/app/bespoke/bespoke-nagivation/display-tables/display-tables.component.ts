@@ -45,6 +45,11 @@ export class DisplayTablesComponent implements OnInit {
     this.collapseNavbar();
   }
 
+  navigateDepreciationDatatable(): void {
+    this.navigationPathService.data = '/display/fixed-asset-depreciation-display';
+    this.navigationQuestionnaireModelService.open();
+  }
+
   collapseNavbar(): void {
     this.isNavbarCollapsed = true;
   }

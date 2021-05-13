@@ -10,7 +10,18 @@
       <li>
         <a class="dropdown-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="navigateNBVDatatable()">
           <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
-          <span>Fixed Asset NetBookValue</span>
+          <span>NetBookValue</span>
+        </a>
+      </li>
+      <li>
+        <a
+          class="dropdown-item"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          (click)="navigateDepreciationDatatable()"
+        >
+          <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+          <span>Depreciation</span>
         </a>
       </li>
     </ul>
