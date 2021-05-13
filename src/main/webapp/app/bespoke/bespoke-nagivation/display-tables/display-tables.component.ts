@@ -50,6 +50,11 @@ export class DisplayTablesComponent implements OnInit {
     this.navigationQuestionnaireModelService.open();
   }
 
+  navigateAcquisitionDatatable(): void {
+    this.navigationPathService.data = '/display/fixed-asset-acquisition-display';
+    this.navigationQuestionnaireModelService.open();
+  }
+
   collapseNavbar(): void {
     this.isNavbarCollapsed = true;
   }

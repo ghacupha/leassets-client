@@ -24,6 +24,17 @@
           <span>Depreciation</span>
         </a>
       </li>
+      <li>
+        <a
+          class="dropdown-item"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          (click)="navigateAcquisitionDatatable()"
+        >
+          <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+          <span>Acquisition</span>
+        </a>
+      </li>
     </ul>
   </li>
 </ul>
