@@ -167,7 +167,7 @@ describe('ArraySummaryServiceTDDTest', () => {
     });
 
     // map make and year and lodash.sumBy to aggregate price
-    const mapped_cars_average_price = lodash.map(grouped_cars, (objs, key) => {
+    const mapped_cars_total_price = lodash.map(grouped_cars, (objs, key) => {
       return {
         make: key.split(',')[0],
         year: key.split(',')[1],
@@ -175,7 +175,7 @@ describe('ArraySummaryServiceTDDTest', () => {
       };
     });
 
-    expect(mapped_cars_average_price).toEqual(expected_total_price_per_model_per_year);
+    expect(mapped_cars_total_price).toEqual(expected_total_price_per_model_per_year);
   });
 
   /**
