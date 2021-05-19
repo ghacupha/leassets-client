@@ -138,7 +138,7 @@ describe('ArraySummaryServiceTDDTest', () => {
   it('should summarize data using lodash', () => {
     // Using of _.groupBy() method
     // with the `_.property` iteratee shorthand
-    let grouped_cars = lodash.groupBy(cars, 'make');
+    const grouped_cars = lodash.groupBy(cars, 'make');
 
     expect(grouped_cars).toEqual(expected_car_list);
   });
@@ -149,9 +149,7 @@ describe('ArraySummaryServiceTDDTest', () => {
    */
   it('should summarize data using lodash for properties', () => {
     // Using of _.groupBy() method
-    let grouped_cars2 = lodash.groupBy(cars, item => {
-      return [item['make'], item['year']];
-    });
+    const grouped_cars2 = lodash.groupBy(cars, item => [item['make'], item['year']]);
 
     expect(grouped_cars2).toEqual(expected_car_list2);
   });
@@ -162,12 +160,10 @@ describe('ArraySummaryServiceTDDTest', () => {
    */
   it('should summarize data and get sum of price per car-model per year', () => {
     // Using lodash.groupBy() method to get groups on make and year
-    const grouped_cars = lodash.groupBy(cars_with_prices, item => {
-      return [item['make'], item['year']];
-    });
+    const grouped_cars = lodash.groupBy(cars_with_prices, item => [item['make'], item['year']]);
 
     // map make and year and lodash.sumBy to aggregate price
-    const mapped_cars_total_price = lodash.map(grouped_cars, (objs, key) => {
+    const mapped_cars_total_price = lodash.map(grouped_cars, function (objs, key) {
       return {
         make: key.split(',')[0],
         year: key.split(',')[1],
@@ -184,12 +180,10 @@ describe('ArraySummaryServiceTDDTest', () => {
    */
   it('should summarize data and get average price per car-model per year', () => {
     // Using lodash.groupBy() method to get groups on make and year
-    const grouped_cars = lodash.groupBy(cars_with_prices, item => {
-      return [item['make'], item['year']];
-    });
+    const grouped_cars = lodash.groupBy(cars_with_prices, item => [item['make'], item['year']]);
 
     // map make and year and lodash.sumBy to aggregate price as average
-    const mapped_cars_average_price = lodash.map(grouped_cars, (objs, key) => {
+    const mapped_cars_average_price = lodash.map(grouped_cars, function (objs, key) {
       return {
         make: key.split(',')[0],
         year: key.split(',')[1],

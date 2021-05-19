@@ -36,11 +36,9 @@ describe('TDDNBVSummaryService', () => {
   ];
 
   it('should Calculate Summary of the NBV entries', function () {
-    const nbv_summary_groups = lodash.groupBy(nbv_entries, entry => {
-      return [entry['serviceOutlet'], entry['category']];
-    });
+    const nbv_summary_groups = lodash.groupBy(nbv_entries, entry => [entry['serviceOutlet'], entry['category']]);
 
-    const nbv_summary: NBVSummary[] = lodash.map(nbv_summary_groups, (objs, key) => {
+    const nbv_summary: NBVSummary[] = lodash.map(nbv_summary_groups, function (objs, key) {
       return {
         serviceOutlet: key.split(',')[0],
         category: key.split(',')[1],
