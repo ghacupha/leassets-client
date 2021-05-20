@@ -16,6 +16,7 @@ import { Router } from '@angular/router';
 import { NGXLogger } from 'ngx-logger';
 import { RouteStateService } from 'app/bespoke/route-state.service';
 import { RouterTestingModule } from '@angular/router/testing';
+import { NgModule } from '@angular/core';
 
 export type EntityArrayResponseType = IFixedAssetNetBookValue[];
 const ROUTER_NAV_PATH = 'fixed-asset-net-book-value';
@@ -94,6 +95,13 @@ class NavigationMock {
   }
 }
 
+/**
+ * Random do-nothing module to represent DataTablesModule since the actual implementation
+ * just doesn't work
+ */
+@NgModule({})
+class DataTablesMockModule {}
+
 describe('FixedAssetNBVDisplayComponentTest', () => {
   let comp: FixedAssetNbvComponent;
   let fixture: ComponentFixture<FixedAssetNbvComponent>;
@@ -104,10 +112,14 @@ describe('FixedAssetNBVDisplayComponentTest', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, DataTablesModule, RouterTestingModule.withRoutes([])],
+      imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([])],
       declarations: [FixedAssetNbvComponent],
       providers: [
         FixedAssetNbvComponent,
+        {
+          provide: DataTablesModule,
+          useClass: DataTablesMockModule,
+        },
         {
           provide: NGXLogger,
           useClass: LoggerMock,
