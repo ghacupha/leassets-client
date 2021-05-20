@@ -1,4 +1,5 @@
 import * as lodash from 'lodash';
+import { FixedAssetNBVSummaryService } from 'app/bespoke/display-tables/fixed-asset-nbv/fixed-asset-nbv-summary.service';
 /**
  * Sample NBV class
  */
@@ -7,11 +8,12 @@ class NBVSummary {
   category!: string;
   netBookValue!: number;
 }
+
 /**
  * This is a service test to see if we can successfully summarize datasets from the back-end
  * here on the browser
  */
-describe('TDDNBVSummaryService', () => {
+describe('TDDFixedAssetNBVSummaryService', () => {
   const nbv_entries: NBVSummary[] = [
     { serviceOutlet: 'AAA', category: 'CC', netBookValue: 1000 },
     { serviceOutlet: 'AAA', category: 'CC', netBookValue: 1000 },
@@ -35,6 +37,8 @@ describe('TDDNBVSummaryService', () => {
     { serviceOutlet: 'AAA', category: 'ee', netBookValue: 12000 },
   ];
 
+  const service: FixedAssetNBVSummaryService = new FixedAssetNBVSummaryService();
+
   it('should Calculate Summary of the NBV entries', function () {
     const nbv_summary_groups = lodash.groupBy(nbv_entries, entry => [entry['serviceOutlet'], entry['category']]);
 
@@ -45,6 +49,12 @@ describe('TDDNBVSummaryService', () => {
         netBookValue: lodash.sumBy(objs, 'netBookValue'),
       };
     });
+
+    expect(nbv_summary).toEqual(expected_nbv_entries);
+  });
+
+  it('should Calculate Summary of the NBV entries using the service', function () {
+    const nbv_summary: NBVSummary[] = service.summarize(nbv_entries);
 
     expect(nbv_summary).toEqual(expected_nbv_entries);
   });
