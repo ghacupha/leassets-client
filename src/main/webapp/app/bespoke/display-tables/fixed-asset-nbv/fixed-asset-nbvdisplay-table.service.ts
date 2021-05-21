@@ -5,10 +5,12 @@ import { createRequestOption } from 'app/core/request/request-util';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import * as dayjs from 'dayjs';
-import { IFixedAssetNetBookValue } from 'app/entities/fixed-asset-net-book-value/fixed-asset-net-book-value.model';
+import { NBVSummary } from 'app/bespoke/display-tables/fixed-asset-nbv/inbvsummary.model';
+import { FixedAssetNBVSummaryService } from 'app/bespoke/display-tables/fixed-asset-nbv/fixed-asset-nbv-summary.service';
+// import { IFixedAssetNetBookValue } from 'app/entities/fixed-asset-net-book-value/fixed-asset-net-book-value.model';
 
-export type EntityResponseType = HttpResponse<IFixedAssetNetBookValue>;
-export type EntityArrayResponseType = HttpResponse<IFixedAssetNetBookValue[]>;
+export type EntityResponseType = HttpResponse<NBVSummary>;
+export type EntityArrayResponseType = HttpResponse<NBVSummary[]>;
 
 @Injectable({
   providedIn: 'root',
@@ -16,23 +18,26 @@ export type EntityArrayResponseType = HttpResponse<IFixedAssetNetBookValue[]>;
 export class FixedAssetNBVDisplayTableService {
   public resourceUrl = this.applicationConfigService.getEndpointFor('api/fixed-asset-net-book-values');
 
-  constructor(protected http: HttpClient, private applicationConfigService: ApplicationConfigService) {}
+  constructor(
+    protected http: HttpClient,
+    private applicationConfigService: ApplicationConfigService,
+    private summaryService: FixedAssetNBVSummaryService
+  ) {}
 
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
-    return this.http
-      .get<IFixedAssetNetBookValue[]>(this.resourceUrl, { params: options, observe: 'response' })
-      .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+    return this.http.get<NBVSummary[]>(this.resourceUrl, { params: options, observe: 'response' });
+    //.pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
 
-  protected convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
-    if (res.body) {
-      res.body.forEach((fixedAssetNetBookValue: IFixedAssetNetBookValue) => {
-        fixedAssetNetBookValue.netBookValueDate = fixedAssetNetBookValue.netBookValueDate
-          ? dayjs(fixedAssetNetBookValue.netBookValueDate)
-          : undefined;
-      });
-    }
-    return res;
-  }
+  // protected convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
+  //   if (res.body) {
+  //     res.body.forEach((fixedAssetNetBookValue: NBVSummary) => {
+  //       fixedAssetNetBookValue.netBookValueDate = fixedAssetNetBookValue.netBookValueDate
+  //         ? dayjs(fixedAssetNetBookValue.netBookValueDate)
+  //         : undefined;
+  //     });
+  //   }
+  //   return res;
+  // }
 }

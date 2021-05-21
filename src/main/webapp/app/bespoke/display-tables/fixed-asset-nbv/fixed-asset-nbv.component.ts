@@ -2,7 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Moment } from 'moment';
-import { IFixedAssetNetBookValue } from 'app/entities/fixed-asset-net-book-value/fixed-asset-net-book-value.model';
+// import { IFixedAssetNetBookValue } from 'app/entities/fixed-asset-net-book-value/fixed-asset-net-book-value.model';
 import { Router } from '@angular/router';
 import { NGXLogger } from 'ngx-logger';
 import { RouteStateService } from 'app/bespoke/route-state.service';
@@ -12,6 +12,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DATE_FORMAT } from 'app/config/input.constants';
 import { JhiAlertService } from 'ng-jhipster';
 import { FixedAssetNBVDisplayTableService } from './fixed-asset-nbvdisplay-table.service';
+import { NBVSummary } from 'app/bespoke/display-tables/fixed-asset-nbv/inbvsummary.model';
 
 @Component({
   selector: 'gha-fixed-asset-nbv',
@@ -23,7 +24,7 @@ export class FixedAssetNbvComponent implements OnInit {
   dtTrigger: any = new Subject<any>();
   reportingMonth?: Moment;
 
-  displayDataArray!: IFixedAssetNetBookValue[];
+  displayDataArray!: NBVSummary[];
 
   constructor(
     protected router: Router,

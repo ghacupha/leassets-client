@@ -17,8 +17,9 @@ import { NGXLogger } from 'ngx-logger';
 import { RouteStateService } from 'app/bespoke/route-state.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgModule } from '@angular/core';
+import { NBVSummary } from 'app/bespoke/display-tables/fixed-asset-nbv/inbvsummary.model';
 
-export type EntityArrayResponseType = IFixedAssetNetBookValue[];
+export type EntityArrayResponseType = NBVSummary[];
 const ROUTER_NAV_PATH = 'fixed-asset-net-book-value';
 
 /**
@@ -27,31 +28,31 @@ const ROUTER_NAV_PATH = 'fixed-asset-net-book-value';
 const returnedValue = [
   {
     ...new FixedAssetNetBookValue(),
-    id: 123,
-    assetNumber: 1,
+    // id: 123,
+    // assetNumber: 1,
     serviceOutletCode: 'BBBBBB',
-    assetTag: 'BBBBBB',
-    assetDescription: 'BBBBBB',
-    netBookValueDate: dayjs().format(DATE_FORMAT),
+    // assetTag: 'BBBBBB',
+    // assetDescription: 'BBBBBB',
+    // netBookValueDate: dayjs().format(DATE_FORMAT),
     assetCategory: 'BBBBBB',
     netBookValue: 1,
-    depreciationRegime: 'BBBBBB',
-    fileUploadToken: 'BBBBBB',
-    compilationToken: 'BBBBBB',
+    // depreciationRegime: 'BBBBBB',
+    // fileUploadToken: 'BBBBBB',
+    // compilationToken: 'BBBBBB',
   },
   {
     ...new FixedAssetNetBookValue(),
-    id: 0,
-    assetNumber: 0,
+    // id: 0,
+    // assetNumber: 0,
     serviceOutletCode: 'AAAAAAA',
-    assetTag: 'AAAAAAA',
-    assetDescription: 'AAAAAAA',
-    netBookValueDate: dayjs().format(DATE_FORMAT),
+    // assetTag: 'AAAAAAA',
+    // assetDescription: 'AAAAAAA',
+    // netBookValueDate: dayjs().format(DATE_FORMAT),
     assetCategory: 'AAAAAAA',
     netBookValue: 0,
-    depreciationRegime: DepreciationRegime.STRAIGHT_LINE_BASIS,
-    fileUploadToken: 'AAAAAAA',
-    compilationToken: 'AAAAAAA',
+    // depreciationRegime: DepreciationRegime.STRAIGHT_LINE_BASIS,
+    // fileUploadToken: 'AAAAAAA',
+    // compilationToken: 'AAAAAAA',
   },
 ];
 

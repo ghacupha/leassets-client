@@ -6,12 +6,13 @@ import { IFixedAssetNetBookValue } from 'app/entities/fixed-asset-net-book-value
 import * as dayjs from 'dayjs';
 
 import { FixedAssetNBVDisplayTableService } from './fixed-asset-nbvdisplay-table.service';
+import { NBVSummary } from 'app/bespoke/display-tables/fixed-asset-nbv/inbvsummary.model';
 
 describe('FixedAssetNetBookValueDisplayTests', () => {
   let service: FixedAssetNBVDisplayTableService;
   let httpMock: HttpTestingController;
-  let returnedFromService: IFixedAssetNetBookValue;
-  let expectedResult: IFixedAssetNetBookValue | IFixedAssetNetBookValue[] | boolean | null;
+  let returnedFromService: NBVSummary;
+  let expectedResult: NBVSummary | NBVSummary[] | boolean | null;
   let currentDate: dayjs.Dayjs;
 
   beforeEach(() => {
@@ -25,30 +26,30 @@ describe('FixedAssetNetBookValueDisplayTests', () => {
 
     returnedFromService = Object.assign(
       {
-        id: 1,
-        assetNumber: 1,
+        // id: 1,
+        // assetNumber: 1,
         serviceOutletCode: 'BBBBBB',
-        assetTag: 'BBBBBB',
-        assetDescription: 'BBBBBB',
-        netBookValueDate: currentDate.format(DATE_FORMAT),
+        // assetTag: 'BBBBBB',
+        // assetDescription: 'BBBBBB',
+        // netBookValueDate: currentDate.format(DATE_FORMAT),
         assetCategory: 'BBBBBB',
         netBookValue: 1,
-        depreciationRegime: 'BBBBBB',
-        fileUploadToken: 'BBBBBB',
-        compilationToken: 'BBBBBB',
+        // depreciationRegime: 'BBBBBB',
+        // fileUploadToken: 'BBBBBB',
+        // compilationToken: 'BBBBBB',
       },
       {
-        id: 0,
-        assetNumber: 0,
+        // id: 0,
+        // assetNumber: 0,
         serviceOutletCode: 'AAAAAAA',
-        assetTag: 'AAAAAAA',
-        assetDescription: 'AAAAAAA',
-        netBookValueDate: currentDate,
+        // assetTag: 'AAAAAAA',
+        // assetDescription: 'AAAAAAA',
+        // netBookValueDate: currentDate,
         assetCategory: 'AAAAAAA',
         netBookValue: 0,
-        depreciationRegime: DepreciationRegime.STRAIGHT_LINE_BASIS,
-        fileUploadToken: 'AAAAAAA',
-        compilationToken: 'AAAAAAA',
+        // depreciationRegime: DepreciationRegime.STRAIGHT_LINE_BASIS,
+        // fileUploadToken: 'AAAAAAA',
+        // compilationToken: 'AAAAAAA',
       }
     );
   });
