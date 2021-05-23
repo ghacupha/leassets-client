@@ -2,7 +2,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Moment } from 'moment';
-// import { IFixedAssetNetBookValue } from 'app/entities/fixed-asset-net-book-value/fixed-asset-net-book-value.model';
 import { Router } from '@angular/router';
 import { NGXLogger } from 'ngx-logger';
 import { RouteStateService } from 'app/bespoke/route-state.service';
@@ -48,7 +47,7 @@ export class FixedAssetNbvComponent implements OnInit {
   ngOnInit(): void {
     this.navigationQuestionnaireModelService.close();
     this.dtOptions = this.getDataTableOptions();
-    this.log.debug(`Creating data-table for loans in the month of : ${this.reportingMonth}`);
+    this.log.debug(`Creating data-table for net-book-value entries in the month of : ${this.reportingMonth}`);
     this.secondPassDataUpdate();
   }
 
@@ -81,9 +80,8 @@ export class FixedAssetNbvComponent implements OnInit {
   private secondPassDataUpdate(): void {
     this.listService.query(this.reportingMonth!.format(DATE_FORMAT)).subscribe(
       res => {
-        // this.displayDataArray = res.body ?? [];
+        // this.displayDataArray to be summarized with the summary-service
         this.displayDataArray = this.summaryService.summarize(res.body ?? []);
-        // TODO test whether data-tables are created once and only once
         this.dtTrigger.next();
       },
       err => this.onError(err.toString()),
@@ -96,8 +94,6 @@ export class FixedAssetNbvComponent implements OnInit {
       this.listService.query(reportingMonth.format(DATE_FORMAT)).subscribe(
         res => {
           this.displayDataArray = res.body ?? [];
-          // TODO test whether data-tables are created once and only once
-          // this.dtTrigger.next()
         },
         err => this.onError(err.toString()),
         () => this.log.info(`Extracted ${this.displayDataArray.length} view items from API`)

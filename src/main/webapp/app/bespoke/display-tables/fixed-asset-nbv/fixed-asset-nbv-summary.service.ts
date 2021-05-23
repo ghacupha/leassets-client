@@ -18,6 +18,7 @@ export class FixedAssetNBVSummaryService {
     const nbv_summary_groups = lodash.groupBy(nbv_entries, entry => [entry['serviceOutletCode'], entry['assetCategory']]);
     return lodash.map(nbv_summary_groups, function (objs, key) {
       return {
+        ...new NBVSummary(),
         serviceOutletCode: key.split(',')[0],
         assetCategory: key.split(',')[1],
         netBookValue: lodash.sumBy(objs, 'netBookValue'),

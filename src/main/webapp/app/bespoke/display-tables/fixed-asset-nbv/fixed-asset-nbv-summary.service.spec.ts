@@ -33,10 +33,12 @@ describe('TDDFixedAssetNBVSummaryService', () => {
   const service: FixedAssetNBVSummaryService = new FixedAssetNBVSummaryService();
 
   it('should Calculate Summary of the NBV entries', function () {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     const nbv_summary_groups = lodash.groupBy(nbv_entries, entry => [entry['serviceOutletCode'], entry['assetCategory']]);
 
     const nbv_summary: NBVSummary[] = lodash.map(nbv_summary_groups, function (objs, key) {
       return {
+        ...new NBVSummary(),
         serviceOutletCode: key.split(',')[0],
         assetCategory: key.split(',')[1],
         netBookValue: lodash.sumBy(objs, 'netBookValue'),
