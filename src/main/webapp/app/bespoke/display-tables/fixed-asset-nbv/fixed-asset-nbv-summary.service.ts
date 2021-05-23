@@ -15,7 +15,9 @@ export class FixedAssetNBVSummaryService {
    * @param nbv_entries Which are going to be summarised
    */
   summarize(nbv_entries: NBVSummary[]): NBVSummary[] {
-    const nbv_summary_groups = lodash.groupBy(nbv_entries, entry => [entry['serviceOutletCode'], entry['assetCategory']]);
+    const nbv_summary_groups = lodash.groupBy(nbv_entries, function (entry) {
+      return [entry['serviceOutletCode'], entry['assetCategory']];
+    });
     return lodash.map(nbv_summary_groups, function (objs, key) {
       return {
         ...new NBVSummary(),
