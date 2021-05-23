@@ -7,7 +7,6 @@ import { FixedAssetNbvComponent } from './fixed-asset-nbv.component';
 import { FixedAssetNBVDisplayTableService } from './fixed-asset-nbvdisplay-table.service';
 import * as moment from 'moment';
 import { DataTablesModule } from 'angular-datatables';
-import { FixedAssetNetBookValue } from 'app/entities/fixed-asset-net-book-value/fixed-asset-net-book-value.model';
 import { Router } from '@angular/router';
 import { NGXLogger } from 'ngx-logger';
 import { RouteStateService } from 'app/bespoke/route-state.service';
@@ -24,51 +23,16 @@ const ROUTER_NAV_PATH = 'fixed-asset-net-book-value';
  */
 const returnedValue = [
   {
-    ...new FixedAssetNetBookValue(),
-    // id: 123,
-    // assetNumber: 1,
     serviceOutletCode: 'BBBBBB',
-    // assetTag: 'BBBBBB',
-    // assetDescription: 'BBBBBB',
-    // netBookValueDate: dayjs().format(DATE_FORMAT),
     assetCategory: 'BBBBBB',
     netBookValue: 1,
-    // depreciationRegime: 'BBBBBB',
-    // fileUploadToken: 'BBBBBB',
-    // compilationToken: 'BBBBBB',
   },
   {
-    ...new FixedAssetNetBookValue(),
-    // id: 0,
-    // assetNumber: 0,
     serviceOutletCode: 'AAAAAAA',
-    // assetTag: 'AAAAAAA',
-    // assetDescription: 'AAAAAAA',
-    // netBookValueDate: dayjs().format(DATE_FORMAT),
     assetCategory: 'AAAAAAA',
     netBookValue: 0,
-    // depreciationRegime: DepreciationRegime.STRAIGHT_LINE_BASIS,
-    // fileUploadToken: 'AAAAAAA',
-    // compilationToken: 'AAAAAAA',
   },
 ];
-
-// const nbv_entries: NBVSummary[] = [
-//   { serviceOutletCode: 'AAA', assetCategory: 'CC', netBookValue: 1000 },
-//   { serviceOutletCode: 'AAA', assetCategory: 'CC', netBookValue: 1000 },
-//   { serviceOutletCode: 'AAA', assetCategory: 'CC', netBookValue: 1000 },
-//   { serviceOutletCode: 'AAA', assetCategory: 'dd', netBookValue: 3000 },
-//   { serviceOutletCode: 'AAA', assetCategory: 'dd', netBookValue: 3000 },
-//   { serviceOutletCode: 'AAA', assetCategory: 'dd', netBookValue: 3000 },
-//   { serviceOutletCode: 'AAA', assetCategory: 'dd', netBookValue: 3000 },
-//   { serviceOutletCode: 'BBB', assetCategory: 'CC', netBookValue: 2000 },
-//   { serviceOutletCode: 'BBB', assetCategory: 'CC', netBookValue: 2000 },
-//   { serviceOutletCode: 'BBB', assetCategory: 'CC', netBookValue: 2000 },
-//   { serviceOutletCode: 'BBB', assetCategory: 'CC', netBookValue: 2000 },
-//   { serviceOutletCode: 'AAA', assetCategory: 'ee', netBookValue: 4000 },
-//   { serviceOutletCode: 'AAA', assetCategory: 'ee', netBookValue: 4000 },
-//   { serviceOutletCode: 'AAA', assetCategory: 'ee', netBookValue: 4000 },
-// ];
 
 const expected_nbv_entries: NBVSummary[] = [
   { serviceOutletCode: 'AAA', assetCategory: 'CC', netBookValue: 3000 },
@@ -127,7 +91,9 @@ class NavigationMock {
  * just doesn't work
  */
 @NgModule({})
-class DataTablesMockModule {}
+class DataTablesMockModule {
+  // this is a mock class, and we hope to get away with doing nothing
+}
 
 describe('FixedAssetNBVDisplayComponentTest', () => {
   let comp: FixedAssetNbvComponent;
