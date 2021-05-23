@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
@@ -8,10 +7,7 @@ import { FixedAssetNbvComponent } from './fixed-asset-nbv.component';
 import { FixedAssetNBVDisplayTableService } from './fixed-asset-nbvdisplay-table.service';
 import * as moment from 'moment';
 import { DataTablesModule } from 'angular-datatables';
-import * as dayjs from 'dayjs';
-import { DATE_FORMAT } from 'app/config/input.constants';
-import { DepreciationRegime } from 'app/entities/enumerations/depreciation-regime.model';
-import { FixedAssetNetBookValue, IFixedAssetNetBookValue } from 'app/entities/fixed-asset-net-book-value/fixed-asset-net-book-value.model';
+import { FixedAssetNetBookValue } from 'app/entities/fixed-asset-net-book-value/fixed-asset-net-book-value.model';
 import { Router } from '@angular/router';
 import { NGXLogger } from 'ngx-logger';
 import { RouteStateService } from 'app/bespoke/route-state.service';
@@ -57,22 +53,22 @@ const returnedValue = [
   },
 ];
 
-const nbv_entries: NBVSummary[] = [
-  { serviceOutletCode: 'AAA', assetCategory: 'CC', netBookValue: 1000 },
-  { serviceOutletCode: 'AAA', assetCategory: 'CC', netBookValue: 1000 },
-  { serviceOutletCode: 'AAA', assetCategory: 'CC', netBookValue: 1000 },
-  { serviceOutletCode: 'AAA', assetCategory: 'dd', netBookValue: 3000 },
-  { serviceOutletCode: 'AAA', assetCategory: 'dd', netBookValue: 3000 },
-  { serviceOutletCode: 'AAA', assetCategory: 'dd', netBookValue: 3000 },
-  { serviceOutletCode: 'AAA', assetCategory: 'dd', netBookValue: 3000 },
-  { serviceOutletCode: 'BBB', assetCategory: 'CC', netBookValue: 2000 },
-  { serviceOutletCode: 'BBB', assetCategory: 'CC', netBookValue: 2000 },
-  { serviceOutletCode: 'BBB', assetCategory: 'CC', netBookValue: 2000 },
-  { serviceOutletCode: 'BBB', assetCategory: 'CC', netBookValue: 2000 },
-  { serviceOutletCode: 'AAA', assetCategory: 'ee', netBookValue: 4000 },
-  { serviceOutletCode: 'AAA', assetCategory: 'ee', netBookValue: 4000 },
-  { serviceOutletCode: 'AAA', assetCategory: 'ee', netBookValue: 4000 },
-];
+// const nbv_entries: NBVSummary[] = [
+//   { serviceOutletCode: 'AAA', assetCategory: 'CC', netBookValue: 1000 },
+//   { serviceOutletCode: 'AAA', assetCategory: 'CC', netBookValue: 1000 },
+//   { serviceOutletCode: 'AAA', assetCategory: 'CC', netBookValue: 1000 },
+//   { serviceOutletCode: 'AAA', assetCategory: 'dd', netBookValue: 3000 },
+//   { serviceOutletCode: 'AAA', assetCategory: 'dd', netBookValue: 3000 },
+//   { serviceOutletCode: 'AAA', assetCategory: 'dd', netBookValue: 3000 },
+//   { serviceOutletCode: 'AAA', assetCategory: 'dd', netBookValue: 3000 },
+//   { serviceOutletCode: 'BBB', assetCategory: 'CC', netBookValue: 2000 },
+//   { serviceOutletCode: 'BBB', assetCategory: 'CC', netBookValue: 2000 },
+//   { serviceOutletCode: 'BBB', assetCategory: 'CC', netBookValue: 2000 },
+//   { serviceOutletCode: 'BBB', assetCategory: 'CC', netBookValue: 2000 },
+//   { serviceOutletCode: 'AAA', assetCategory: 'ee', netBookValue: 4000 },
+//   { serviceOutletCode: 'AAA', assetCategory: 'ee', netBookValue: 4000 },
+//   { serviceOutletCode: 'AAA', assetCategory: 'ee', netBookValue: 4000 },
+// ];
 
 const expected_nbv_entries: NBVSummary[] = [
   { serviceOutletCode: 'AAA', assetCategory: 'CC', netBookValue: 3000 },
@@ -87,9 +83,7 @@ const expected_nbv_entries: NBVSummary[] = [
  */
 class MockFixedAssetNBVDisplayTableService {
   query(): Observable<EntityArrayResponseType> {
-    return new Observable(() => {
-      returnedValue;
-    });
+    return of(returnedValue);
   }
 }
 
@@ -97,9 +91,15 @@ class MockFixedAssetNBVDisplayTableService {
  * Simple do-nothing mock for the NGXLogger
  */
 class LoggerMock {
-  debug(): void {}
-  info(): void {}
-  error(): void {}
+  debug(): void {
+    // mock log.debug method
+  }
+  info(): void {
+    // mock log.info method
+  }
+  error(): void {
+    // mock log.error method
+  }
 }
 
 /**
@@ -108,6 +108,7 @@ class LoggerMock {
 class RouteStateServiceMock {
   data: { reportingPeriod: moment.Moment } = { reportingPeriod: moment() };
   reset(): void {
+    // Simply using today's date
     this.data.reportingPeriod = moment();
   }
 }
@@ -133,7 +134,6 @@ describe('FixedAssetNBVDisplayComponentTest', () => {
   let fixture: ComponentFixture<FixedAssetNbvComponent>;
   let service: FixedAssetNBVDisplayTableService;
   let summaryService: FixedAssetNBVSummaryService;
-  // let mockRouter;
 
   const returnedFromService = Object.assign(returnedValue);
 
@@ -179,6 +179,7 @@ describe('FixedAssetNBVDisplayComponentTest', () => {
       )
     );
 
+    // return post-reduction expected_nbv_entries from spy
     spyOn(summaryService, 'summarize').and.returnValue(expected_nbv_entries);
 
     fixture.detectChanges();
@@ -209,6 +210,7 @@ describe('FixedAssetNBVDisplayComponentTest', () => {
   describe('FixedAssetNBVDisplayComponentTest-on-error', () => {
     it('Should navigate to fixed-asset-net-book-value on error', () => {
       const router: Router = TestBed.inject(Router);
+
       const navigateSpy = spyOn(router, 'navigate').and.returnValue(new NavigationMock());
 
       comp.onError('Fake error');
