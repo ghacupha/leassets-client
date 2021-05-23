@@ -18,6 +18,7 @@ import { RouteStateService } from 'app/bespoke/route-state.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgModule } from '@angular/core';
 import { NBVSummary } from 'app/bespoke/display-tables/fixed-asset-nbv/inbvsummary.model';
+import { FixedAssetNBVSummaryService } from 'app/bespoke/display-tables/fixed-asset-nbv/fixed-asset-nbv-summary.service';
 
 export type EntityArrayResponseType = NBVSummary[];
 const ROUTER_NAV_PATH = 'fixed-asset-net-book-value';
@@ -54,6 +55,30 @@ const returnedValue = [
     // fileUploadToken: 'AAAAAAA',
     // compilationToken: 'AAAAAAA',
   },
+];
+
+const nbv_entries: NBVSummary[] = [
+  { serviceOutletCode: 'AAA', assetCategory: 'CC', netBookValue: 1000 },
+  { serviceOutletCode: 'AAA', assetCategory: 'CC', netBookValue: 1000 },
+  { serviceOutletCode: 'AAA', assetCategory: 'CC', netBookValue: 1000 },
+  { serviceOutletCode: 'AAA', assetCategory: 'dd', netBookValue: 3000 },
+  { serviceOutletCode: 'AAA', assetCategory: 'dd', netBookValue: 3000 },
+  { serviceOutletCode: 'AAA', assetCategory: 'dd', netBookValue: 3000 },
+  { serviceOutletCode: 'AAA', assetCategory: 'dd', netBookValue: 3000 },
+  { serviceOutletCode: 'BBB', assetCategory: 'CC', netBookValue: 2000 },
+  { serviceOutletCode: 'BBB', assetCategory: 'CC', netBookValue: 2000 },
+  { serviceOutletCode: 'BBB', assetCategory: 'CC', netBookValue: 2000 },
+  { serviceOutletCode: 'BBB', assetCategory: 'CC', netBookValue: 2000 },
+  { serviceOutletCode: 'AAA', assetCategory: 'ee', netBookValue: 4000 },
+  { serviceOutletCode: 'AAA', assetCategory: 'ee', netBookValue: 4000 },
+  { serviceOutletCode: 'AAA', assetCategory: 'ee', netBookValue: 4000 },
+];
+
+const expected_nbv_entries: NBVSummary[] = [
+  { serviceOutletCode: 'AAA', assetCategory: 'CC', netBookValue: 3000 },
+  { serviceOutletCode: 'AAA', assetCategory: 'dd', netBookValue: 12000 },
+  { serviceOutletCode: 'BBB', assetCategory: 'CC', netBookValue: 8000 },
+  { serviceOutletCode: 'AAA', assetCategory: 'ee', netBookValue: 12000 },
 ];
 
 /**
@@ -107,6 +132,7 @@ describe('FixedAssetNBVDisplayComponentTest', () => {
   let comp: FixedAssetNbvComponent;
   let fixture: ComponentFixture<FixedAssetNbvComponent>;
   let service: FixedAssetNBVDisplayTableService;
+  let summaryService: FixedAssetNBVSummaryService;
   // let mockRouter;
 
   const returnedFromService = Object.assign(returnedValue);
@@ -141,6 +167,7 @@ describe('FixedAssetNBVDisplayComponentTest', () => {
     fixture = TestBed.createComponent(FixedAssetNbvComponent);
     comp = fixture.componentInstance;
     service = TestBed.inject(FixedAssetNBVDisplayTableService);
+    summaryService = TestBed.inject(FixedAssetNBVSummaryService);
 
     const headers = new HttpHeaders().append('link', 'link;link');
     spyOn(service, 'query').and.returnValue(
@@ -151,6 +178,8 @@ describe('FixedAssetNBVDisplayComponentTest', () => {
         })
       )
     );
+
+    spyOn(summaryService, 'summarize').and.returnValue(expected_nbv_entries);
 
     fixture.detectChanges();
   });
@@ -167,10 +196,13 @@ describe('FixedAssetNBVDisplayComponentTest', () => {
       // WHEN
       comp.ngOnInit();
 
-      const serviceValues = Object.assign(returnedFromService);
       // THEN
       expect(service.query).toHaveBeenCalled();
-      expect(comp.displayDataArray[0]).toEqual(jasmine.objectContaining(serviceValues));
+      expect(summaryService.summarize).toHaveBeenCalled();
+
+      const serviceValues = summaryService.summarize(Object.assign(returnedFromService));
+
+      expect(comp.displayDataArray).toEqual(jasmine.objectContaining(serviceValues));
     });
   });
 

@@ -18,16 +18,12 @@ export type EntityArrayResponseType = HttpResponse<NBVSummary[]>;
 export class FixedAssetNBVDisplayTableService {
   public resourceUrl = this.applicationConfigService.getEndpointFor('api/fixed-asset-net-book-values');
 
-  constructor(
-    protected http: HttpClient,
-    private applicationConfigService: ApplicationConfigService,
-    private summaryService: FixedAssetNBVSummaryService
-  ) {}
+  constructor(protected http: HttpClient, private applicationConfigService: ApplicationConfigService) {}
 
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
     return this.http.get<NBVSummary[]>(this.resourceUrl, { params: options, observe: 'response' });
-    //.pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+    // .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
 
   // protected convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {

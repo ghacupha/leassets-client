@@ -13,6 +13,7 @@ import { DATE_FORMAT } from 'app/config/input.constants';
 import { JhiAlertService } from 'ng-jhipster';
 import { FixedAssetNBVDisplayTableService } from './fixed-asset-nbvdisplay-table.service';
 import { NBVSummary } from 'app/bespoke/display-tables/fixed-asset-nbv/inbvsummary.model';
+import { FixedAssetNBVSummaryService } from 'app/bespoke/display-tables/fixed-asset-nbv/fixed-asset-nbv-summary.service';
 
 @Component({
   selector: 'gha-fixed-asset-nbv',
@@ -34,7 +35,8 @@ export class FixedAssetNbvComponent implements OnInit {
     protected routeStateService: RouteStateService<INavigationQuestionnaire>,
     protected navigationPathServiceService: RouteStateService<string>,
     protected navigationQuestionnaireModelService: NavigationQuestionnaireModalService,
-    protected modalService: NgbModal
+    protected modalService: NgbModal,
+    private summaryService: FixedAssetNBVSummaryService
   ) {
     this.reportingMonth = this.routeStateService.data.reportingPeriod;
     this.routeStateService.reset();
@@ -79,7 +81,8 @@ export class FixedAssetNbvComponent implements OnInit {
   private secondPassDataUpdate(): void {
     this.listService.query(this.reportingMonth!.format(DATE_FORMAT)).subscribe(
       res => {
-        this.displayDataArray = res.body ?? [];
+        // this.displayDataArray = res.body ?? [];
+        this.displayDataArray = this.summaryService.summarize(res.body ?? []);
         // TODO test whether data-tables are created once and only once
         this.dtTrigger.next();
       },
